@@ -1,0 +1,56 @@
+/* Footer specific styles */
+.footer-link {
+  @apply text-sm text-muted-foreground hover:text-foreground transition-colors duration-200;
+}
+
+.footer-heading {
+  @apply font-heading font-semibold text-sm text-foreground mb-4;
+}
+
+.social-link {
+  @apply w-8 h-8 bg-muted rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200;
+}
+
+.footer-section {
+  @apply space-y-4;
+}
+
+.footer-bottom {
+  @apply border-t border-border mt-8 pt-8;
+}
+
+/* Layout specific styles */
+.layout-container {
+  @apply min-h-screen flex flex-col bg-background;
+}
+
+.layout-main {
+  @apply flex-1;
+}
+
+.layout-main-with-header {
+  @apply pt-16;
+}
+
+.layout-main-with-footer {
+  @apply pb-0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-grid {
+    @apply grid-cols-1 gap-8;
+  }
+  
+  .footer-brand {
+    @apply text-center;
+  }
+  
+  .footer-social {
+    @apply justify-center;
+  }
+  
+  .footer-newsletter {
+    @apply text-center;
+  }
+}

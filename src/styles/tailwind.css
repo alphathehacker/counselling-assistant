@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --color-background: #F8FAFC; /* Slate 50 */
+    --color-foreground: #0F172A; /* Slate 900 */
+    --color-border: #E2E8F0; /* Slate 200 */
+    --color-input: #FFFFFF;
+    --color-ring: #2563EB; /* Blue 600 */
+    
+    /* RGB values for glowing effects */
+    --color-primary-rgb: 37, 99, 235;
+    --color-secondary-rgb: 124, 58, 237;
+    
+    /* Card Colors */
+    --color-card: #FFFFFF;
+    --color-card-foreground: #0F172A;
+    
+    /* Popover Colors */
+    --color-popover: #FFFFFF;
+    --color-popover-foreground: #0F172A;
+    
+    /* Muted Colors */
+    --color-muted: #F1F5F9; /* Slate 100 */
+    --color-muted-foreground: #64748B; /* Slate 500 */
+    
+    /* Primary Colors (Premium Blue) */
+    --color-primary: #2563EB;
+    --color-primary-foreground: #FFFFFF;
+    
+    /* Secondary Colors (Royal Violet) */
+    --color-secondary: #7C3AED;
+    --color-secondary-foreground: #FFFFFF;
+    
+    /* Accent Colors */
+    --color-accent: #F59E0B;
+    --color-accent-foreground: #0F172A;
+    
+    /* Status Colors */
+    --color-success: #10B981;
+    --color-success-foreground: #FFFFFF;
+    --color-warning: #F59E0B;
+    --color-warning-foreground: #0F172A;
+    --color-error: #EF4444;
+    --color-error-foreground: #FFFFFF;
+    --color-destructive: #EF4444;
+    --color-destructive-foreground: #FFFFFF;
+
+    /* Radius */
+    --radius: 0.75rem;
+  }
+
+  /* Global focus ring style */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+
+  body, p, span, div {
+    @apply font-body leading-relaxed;
+  }
+
+  /* Selection style */
+  ::selection {
+    background-color: rgba(var(--color-primary-rgb), 0.2);
+    color: var(--color-primary);
+  }
+}
+
+@layer components {
+  /* Helper component classes */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-premium;
+  }
+  
+  .glass-header {
+    @apply bg-white/80 backdrop-blur-lg border-b border-white/20;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .shadow-glow-primary {
+    box-shadow: 0 0 20px -5px rgba(var(--color-primary-rgb), 0.5);
+  }
+  
+  .shadow-glow-secondary {
+    box-shadow: 0 0 20px -5px rgba(var(--color-secondary-rgb), 0.5);
+  }
+
+  /* Hide scrollbar but allow scrolling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

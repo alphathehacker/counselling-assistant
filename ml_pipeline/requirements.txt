@@ -1,0 +1,7 @@
+pandas
+numpy
+scikit-learn
+
+# Optional: for XGBoost/LightGBM when >= 4 years of data
+xgboost
+lightgbm

@@ -1,0 +1,68 @@
+{
+  "name": "All India Institute of Medical Sciences (AIIMS), Kalyani",
+  "shortName": "AIIMS Kalyani",
+  "location": "Kalyani, West Bengal",
+  "type": "Government",
+  "category": "Institute of National Importance",
+  "examType": "NEET-UG",
+  "established": 2019,
+  "campusSize": "180 Acres",
+  "officialWebsite": "https://aiimskalyani.edu.in/",
+  "contact": {
+    "email": "info@aiimskalyani.edu.in",
+    "phone": "+91-33-29516005"
+  },
+  "courses": [
+    {
+      "name": "MBBS",
+      "duration": "5.5 Years",
+      "seats": 125,
+      "fees": "5856 (Total Course Fee)",
+      "description": "The Bachelor of Medicine and Bachelor of Surgery (MBBS) is the primary medical degree offered by AIIMS Kalyani, focusing on comprehensive medical education and clinical training."
+    },
+    {
+      "name": "B.Sc (Hons) Nursing",
+      "duration": "4 Years",
+      "seats": 60,
+      "fees": "N/A",
+      "description": "High-quality nursing education to meet the healthcare needs of the nation."
+    }
+  ],
+  "cutoffs": [
+    {
+      "year": 2025,
+      "round": "Round 1",
+      "category": "General",
+      "closingRank": 2417
+    },
+    {
+      "year": 2024,
+      "round": "Round 1",
+      "category": "General",
+      "closingRank": 2149
+    },
+    {
+      "year": 2023,
+      "round": "Round 1",
+      "category": "General",
+      "closingRank": 2176
+    }
+  ],
+  "facilities": [
+    "Modern Classrooms",
+    "Smart Boards",
+    "Separate Hostels (Boys & Girls)",
+    "Super-Specialty Hospital (960+ beds)",
+    "Digital Library",
+    "24/7 Security",
+    "Sports Complex",
+    "Rotational Mess"
+  ],
+  "highlights": [
+    "Institute of National Importance",
+    "Autonomous Public Medical University",
+    "Advanced Clinical Exposure",
+    "Low Tuition Fees",
+    "Modern Infrastructure"
+  ]
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Bookmarks</title>
+</head>
+<body>
+    <h1>Bookmarks in localStorage</h1>
+    <div id="bookmarks"></div>
+    
+    <h2>Saved Predictions</h2>
+    <div id="savedPredictions"></div>
+    
+    <script>
+        // Check bookmarks
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks_anonymous') || '[]');
+        document.getElementById('bookmarks').innerHTML = `
+            <h3>Total Bookmarks: ${bookmarks.length}</h3>
+            <pre>${JSON.stringify(bookmarks, null, 2)}</pre>
+        `;
+        
+        // Check saved predictions
+        const savedPredictions = localStorage.getItem('savedPredictions_anonymous');
+        document.getElementById('savedPredictions').innerHTML = `
+            <h3>Saved Predictions Info:</h3>
+            <pre>${savedPredictions || 'None'}</pre>
+        `;
+        
+        // List all localStorage keys
+        console.log('All localStorage keys:', Object.keys(localStorage));
+        Object.keys(localStorage).forEach(key => {
+            console.log(`Key: ${key}, Value:`, localStorage.getItem(key));
+        });
+    </script>
+</body>
+</html>
