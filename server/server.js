@@ -122,3 +122,21 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
+
+// Keep-alive: free-tier hosts (e.g. Render) sleep when idle. Render sets
+// RENDER_EXTERNAL_URL automatically, so ping our own health endpoint every
+// 10 minutes while the instance is running to keep it warm.
+// Opt out anytime with KEEP_ALIVE=false.
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
+if (externalUrl && process.env.KEEP_ALIVE !== 'false') {
+  const intervalMs = 10 * 60 * 1000;
+  setInterval(async () => {
+    try {
+      await fetch(`${externalUrl}/api/health`);
+      console.log('Keep-alive ping sent');
+    } catch (err) {
+      console.warn('Keep-alive ping failed:', err.message);
+    }
+  }, intervalMs);
+  console.log(`Keep-alive enabled for ${externalUrl}`);
+}
