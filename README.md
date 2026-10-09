@@ -1,107 +1,61 @@
-# React
+# Counselling Assistant
 
-A modern React-based project utilizing the latest frontend technologies and tools for building responsive web applications.
+A college counselling and admission-prediction web application for Indian entrance exams (AP EAPCET, AP ECET, NEET, JEE Main, JEE Advanced). Students enter their exam, rank, category, gender, district and preferred branches, and get a list of colleges they are likely to get into, based on previous-year cutoff data.
 
-## 🚀 Features
+**Final-year project** — React frontend, Node/Express + MongoDB backend, with a separate Python ML pipeline.
 
-- **React 18** - React version with improved rendering and concurrent features
-- **Vite** - Lightning-fast build tool and development server
-- **Redux Toolkit** - State management with simplified Redux setup
-- **TailwindCSS** - Utility-first CSS framework with extensive customization
-- **React Router v6** - Declarative routing for React applications
-- **Data Visualization** - Integrated D3.js and Recharts for powerful data visualization
-- **Form Management** - React Hook Form for efficient form handling
-- **Animation** - Framer Motion for smooth UI animations
-- **Testing** - Jest and React Testing Library setup
+## What it does
 
-## 📋 Prerequisites
+**Students**
+- Register / log in (email + password, Google/Facebook OAuth)
+- Enter exam, rank, category, gender, district and branch preferences
+- Get predicted colleges with chance bands, sorted by confidence and NIRF ranking
+- Save prediction reports, bookmark colleges, compare colleges side by side
+- Dashboard, profile settings, and a counselling chatbot for follow-up questions
 
-- Node.js (v14.x or higher)
-- npm or yarn
+**Admins**
+- Separate admin login and panel
+- Upload and manage the college / cutoff datasets (CSV) that predictions run on
 
-## 🛠️ Installation
+## How prediction works (honestly)
 
-1. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-   
-2. Start the development server:
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
+The live prediction is **rule-based**: the student's rank is compared against stored previous-year closing ranks for each college/branch, and results are grouped into chance bands (roughly: rank well inside last year's closing rank → high chance, through to just outside it → low chance). The Python `ml_pipeline/` is a **separate experiment** in forecasting future closing ranks (scikit-learn models compared on generated sample data) — it is not wired into the live server yet.
 
-## 📁 Project Structure
+## Architecture
 
 ```
-react_app/
-├── public/             # Static assets
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Page components
-│   ├── styles/         # Global styles and Tailwind configuration
-│   ├── App.jsx         # Main application component
-│   ├── Routes.jsx      # Application routes
-│   └── index.jsx       # Application entry point
-├── .env                # Environment variables
-├── index.html          # HTML template
-├── package.json        # Project dependencies and scripts
-├── tailwind.config.js  # Tailwind CSS configuration
-└── vite.config.js      # Vite configuration
+React + Vite frontend  ──REST API──►  Express server  ──►  MongoDB (Mongoose)
+ (src/, ~27 pages)                    (server/, JWT auth)     College / User /
+                                                              Prediction models
+ml_pipeline/  (Python, standalone experiment — not connected to the server)
 ```
 
-## 🧩 Adding Routes
+## Tech stack
 
-To add new routes to the application, update the `Routes.jsx` file:
+- **Frontend:** React 18, Vite, React Router, Tailwind CSS, Framer Motion, Recharts, Axios
+- **Backend:** Node.js, Express, Mongoose, JWT, Passport (Google/Facebook OAuth)
+- **Data:** Previous-year cutoff datasets per exam (CSV), admin CSV upload
+- **ML (experimental):** Python, scikit-learn (`ml_pipeline/`)
 
-```jsx
-import { useRoutes } from "react-router-dom";
-import HomePage from "pages/HomePage";
-import AboutPage from "pages/AboutPage";
+## Run locally
 
-const ProjectRoutes = () => {
-  let element = useRoutes([
-    { path: "/", element: <HomePage /> },
-    { path: "/about", element: <AboutPage /> },
-    // Add more routes as needed
-  ]);
-
-  return element;
-};
-```
-
-## 🎨 Styling
-
-This project uses Tailwind CSS for styling. The configuration includes:
-
-- Forms plugin for form styling
-- Typography plugin for text styling
-- Aspect ratio plugin for responsive elements
-- Container queries for component-specific responsive design
-- Fluid typography for responsive text
-- Animation utilities
-
-## 📱 Responsive Design
-
-The app is built with responsive design using Tailwind CSS breakpoints.
-
-
-## 📦 Deployment
-
-Build the application for production:
+Frontend:
 
 ```bash
-npm run build
+npm install
+npm run dev
 ```
 
-## 🙏 Acknowledgments
+Backend: copy `server/env.template` to `server/.env`, fill in your MongoDB URI and secrets, then:
 
-- Built with [Rocket.new](https://rocket.new)
-- Powered by React and Vite
-- Styled with Tailwind CSS
+```bash
+cd server
+npm install
+node server.js
+```
 
-Built with ❤️ on Rocket.new
+The frontend reads the API URL from `VITE_API_URL` and falls back to `http://localhost:5000/api`.
+
+## Status
+
+Final-year project, built and working locally. Screenshots: _(to be added)_
