@@ -9,7 +9,7 @@ import { authAPI } from '../../utils/api';
 
 const ProfileSettings = () => {
   const navigate = useNavigate();
-  const { user, login, updateProfile } = useAuth();
+  const { user, login, updateProfile, logout } = useAuth();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -93,7 +93,7 @@ const ProfileSettings = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="pt-16 pb-20 lg:pb-8">
+      <div className="pb-20 lg:pb-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Page Header */}
           <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -265,6 +265,28 @@ const ProfileSettings = () => {
                   </div>
                   <Button variant="outline" iconName="Lock" size="sm">
                     Change Password
+                  </Button>
+                </div>
+              </div>
+
+              {/* Sign Out */}
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-1">
+                      Sign Out
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Log out of your account on this device.
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    iconName="LogOut"
+                    onClick={() => { logout(); navigate('/login'); }}
+                  >
+                    Sign Out
                   </Button>
                 </div>
               </div>
