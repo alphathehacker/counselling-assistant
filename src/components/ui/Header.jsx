@@ -72,7 +72,8 @@ const Header = () => {
   const unreadCount = notifications?.filter(n => !n?.read)?.length;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-300 bg-card border-b border-border backdrop-blur-sm">
+    <>
+    <header className="fixed top-0 left-0 right-0 z-300 bg-card border-b border-border">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
         {/* Logo */}
         <Link to="/student-dashboard" className="flex items-center space-x-2 hover:opacity-80 transition-smooth">
@@ -243,10 +244,25 @@ const Header = () => {
           )}
         </div>
       </div>
-      {/* Mobile Navigation */}
+      {/* Overlay for dropdowns */}
+      {(isNotificationOpen || isProfileOpen) && (
+        <div
+          className="fixed inset-0 z-250"
+          onClick={() => {
+            setIsNotificationOpen(false);
+            setIsProfileOpen(false);
+          }}
+        />
+      )}
+    </header>
+
+    {/* Mobile bottom navigation — rendered OUTSIDE <header> on purpose:
+        a fixed element inside a fixed/blurred ancestor anchors to that
+        ancestor instead of the viewport (which put this bar at the top). */}
+    {user && (
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-100 bg-card border-t border-border pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-around py-1.5">
-          {navigationItems?.map((item) => (
+          {[...navigationItems, { label: 'Profile', path: '/profile-settings', icon: 'User' }]?.map((item) => (
             <Link
               key={item?.path}
               to={item?.path}
@@ -260,17 +276,8 @@ const Header = () => {
           ))}
         </div>
       </nav>
-      {/* Overlay for dropdowns */}
-      {(isNotificationOpen || isProfileOpen) && (
-        <div
-          className="fixed inset-0 z-250"
-          onClick={() => {
-            setIsNotificationOpen(false);
-            setIsProfileOpen(false);
-          }}
-        />
-      )}
-    </header>
+    )}
+    </>
   );
 };
 
