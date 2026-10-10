@@ -107,10 +107,10 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <Link
         to="/"
-        className="absolute top-6 left-6 text-sm text-blue-600 hover:text-blue-700 inline-flex items-center font-medium bg-white/50 px-4 py-2 rounded-lg backdrop-blur-sm transition-all hover:bg-white/80"
+        className="w-full max-w-md mb-6 text-sm text-blue-600 hover:text-blue-700 inline-flex items-center font-medium bg-white/70 px-4 py-2 rounded-lg shadow-sm transition-all hover:bg-white self-center justify-start"
       >
         <Icon name="ArrowLeft" size={16} className="mr-2" />
         Back to home
@@ -122,7 +122,7 @@ const Register = () => {
             <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
               <Icon name="GraduationCap" size={28} color="white" />
             </div>
-            <span className="font-bold text-2xl text-gray-900">Counselling Assistant</span>
+            <span className="font-bold text-xl sm:text-2xl text-gray-900">Counselling Assistant</span>
           </Link>
         </div>
 
