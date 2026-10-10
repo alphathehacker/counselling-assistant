@@ -930,7 +930,7 @@ const BookmarksSavedColleges = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="pt-16 pb-20 lg:pb-8">
+      <div className="pb-20 lg:pb-8">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           {/* Page Header */}
           <div className="mb-6">
