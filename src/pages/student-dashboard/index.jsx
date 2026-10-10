@@ -6,7 +6,6 @@ import ProgressTracker from './components/ProgressTracker';
 import RecentPredictions from './components/RecentPredictions';
 import NotificationPanel from './components/NotificationPanel';
 import StatisticsCards from './components/StatisticsCards';
-import ChatbotWidget from './components/ChatbotWidget';
 import JeePredictor from './components/JeePredictor';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
@@ -171,8 +170,6 @@ const StudentDashboard = () => {
           </div>
         </div>
       </div>
-      {/* Chatbot Widget */}
-      <ChatbotWidget />
     </div>
   );
 };
