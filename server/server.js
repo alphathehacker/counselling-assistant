@@ -11,6 +11,7 @@ import imageRoutes from './routes/images.js';
 import userRoutes from './routes/user.js';
 import prediction2Routes from './routes/prediction2.js';
 import notificationRoutes from './routes/notifications.js';
+import chatRoutes from './routes/chat.js';
 
 // ... (rest of imports)
 
@@ -76,6 +77,8 @@ app.use('/api/user', userRoutes);
 app.use('/api/prediction2', prediction2Routes);
 app.use('/api/notifications', notificationRoutes);
 console.log('✓ Notifications Route Registered on /api/notifications');
+app.use('/api/chat', chatRoutes);
+console.log('✓ Chat Route Registered on /api/chat');
 
 
 // Health check route
