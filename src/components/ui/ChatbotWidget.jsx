@@ -49,7 +49,7 @@ const ChatbotWidget = () => {
   if (!user) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999]">
+    <div className="fixed bottom-24 right-4 sm:right-6 lg:bottom-6 z-[999]">
       {/* Chat Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -62,7 +62,7 @@ const ChatbotWidget = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-[350px] sm:w-[400px] h-[500px] bg-card border border-border rounded-2xl shadow-modal flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-[350px] sm:w-[400px] sm:max-w-none h-[65dvh] max-h-[500px] bg-card border border-border rounded-2xl shadow-modal flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
           <div className="p-4 bg-primary text-primary-foreground flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
