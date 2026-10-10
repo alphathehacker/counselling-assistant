@@ -70,6 +70,15 @@ const PredictionResults = ({ results, loading, onBookmark, onViewDetails, userRa
 
   return (
     <div className={className}>
+      {/* Disclaimer */}
+      <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3 mb-6 text-sm text-amber-900">
+        <Icon name="Info" size={18} className="mt-0.5 shrink-0" />
+        <p>
+          Predictions are based on previous-year cutoffs and are indicative only.
+          Actual cutoffs change every year — this is not a guarantee of admission.
+        </p>
+      </div>
+
       {/* Results Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
