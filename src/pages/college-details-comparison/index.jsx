@@ -117,7 +117,7 @@ const CollegeDetailsComparison = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="pt-16 pb-20 md:pb-6">
+        <div className="pb-20 md:pb-6">
           <div className="flex items-center justify-center h-96">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
@@ -132,7 +132,7 @@ const CollegeDetailsComparison = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="pt-16 pb-20 md:pb-6">
+        <div className="pb-20 md:pb-6">
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
               <Icon name="AlertCircle" size={48} className="text-error mx-auto mb-4" />
@@ -153,7 +153,7 @@ const CollegeDetailsComparison = () => {
   if (comparisonColleges.length === 0) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="pt-16 pb-20 md:pb-6">
+        <div className="pb-20 md:pb-6">
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
               <Icon name="GitCompare" size={48} className="text-muted-foreground mx-auto mb-4" />
