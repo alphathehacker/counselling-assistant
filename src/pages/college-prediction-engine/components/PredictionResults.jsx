@@ -92,13 +92,13 @@ const PredictionResults = ({ results, loading, onBookmark, onViewDetails, userRa
           </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Select
             options={sortOptions}
             value={sortBy}
             onChange={setSortBy}
             placeholder="Sort by"
-            className="w-48"
+            className="w-full sm:w-48"
           />
           {((displayGrouped && groupedResults.length > 0) || sortedResults.length > 0) && (
             <>
