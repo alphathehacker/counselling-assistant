@@ -20,6 +20,8 @@ const Layout = ({ children }) => {
         {children}
       </main>
       {shouldShowFooter && <Footer />}
+      {/* Spacer so the fixed mobile bottom nav never covers page/footer content */}
+      {shouldShowHeader && <div className="h-20 lg:hidden" aria-hidden="true" />}
     </div>
   );
 };
