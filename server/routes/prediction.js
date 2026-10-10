@@ -54,14 +54,21 @@ const parseCsvContent = (csvContent) => {
   });
 };
 
-// Helper: load and parse CSV rows for an exam type
+// Helper: load and parse CSV rows for an exam type.
+// Parsed rows are cached in memory keyed by the CSV document id, so repeat
+// predictions for the same exam skip re-fetching and re-parsing the full CSV.
+// A new admin upload creates a new document id, which naturally busts the cache.
+const examRowsCache = new Map();
+
 const loadExamRows = async (examType) => {
   const decodedExamType = decodeURIComponent(examType);
 
   const csvData = await CSVData.findOne({
     examType: decodedExamType,
     isActive: true,
-  }).sort({ uploadedAt: -1 });
+  })
+    .sort({ uploadedAt: -1 })
+    .select('_id examType csvContent');
 
   if (!csvData) {
     const availableTypes = await CSVData.distinct('examType', { isActive: true });
@@ -73,8 +80,20 @@ const loadExamRows = async (examType) => {
     throw error;
   }
 
+  const cacheKey = csvData._id.toString();
+  const cached = examRowsCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const rows = await parseCsvContent(csvData.csvContent || '');
-  return { rows, examType: csvData.examType };
+  const result = { rows, examType: csvData.examType };
+  // Keep the cache bounded: one parsed dataset per exam type is typical.
+  if (examRowsCache.size > 10) {
+    examRowsCache.clear();
+  }
+  examRowsCache.set(cacheKey, result);
+  return result;
 };
 
 // @route   POST /api/prediction/predict
@@ -908,38 +927,55 @@ router.post(
         console.error('Error loading dynamic college mapping:', err);
       }
 
-      // Enhance predictions with college details from database
+      // Enhance predictions with college details from database.
+      // Performance: load the active college list ONCE and index it by
+      // normalized name, instead of up to 3 sequential regex queries per
+      // prediction (which made a ~600-college result take over a minute).
+      // Matching order is preserved: mapped admin name -> CSV name (+district
+      // preference) -> CSV name alone.
+      const activeColleges = await College.find({ isActive: { $ne: false } })
+        .select('name location imageUrl collegeType rankings fees placements')
+        .lean();
+      const collegeByName = new Map();
+      for (const c of activeColleges) {
+        const key = (c.name || '').toLowerCase().trim();
+        if (key && !collegeByName.has(key)) {
+          collegeByName.set(key, c);
+        }
+      }
+      const findCollegeByName = (name, district) => {
+        if (!name) return null;
+        const exact = collegeByName.get(name.toLowerCase().trim());
+        if (exact) return exact;
+        const needle = name.toLowerCase().trim();
+        const candidates = activeColleges.filter((c) =>
+          (c.name || '').toLowerCase().includes(needle)
+        );
+        if (!candidates.length) return null;
+        if (district) {
+          const withDistrict = candidates.find((c) =>
+            (c.location?.district || '').toLowerCase().includes(district.toLowerCase().trim())
+          );
+          if (withDistrict) return withDistrict;
+        }
+        return candidates[0];
+      };
+
       const enhancedPredictions = [];
       for (const pred of predictions) {
         const csvNameLower = pred.name.toLowerCase().trim();
         const mappedAdminName = mapping[csvNameLower];
-        
+
         let college = null;
-        
-        // 1. Try finding by exactly matching the Admin name (bypass District check for safety)
+
+        // 1. Mapped admin name first (same priority as before)
         if (mappedAdminName) {
-           college = await College.findOne({ name: mappedAdminName }).lean();
-           
-           if (!college) {
-             college = await College.findOne({ 
-               name: { $regex: new RegExp('^' + mappedAdminName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$', 'i') } 
-             }).lean();
-           }
+          college = findCollegeByName(mappedAdminName);
         }
-        
-        // 2. Fallback: try finding by raw CSV name and district (original logic)
+
+        // 2/3. Raw CSV name, preferring a district match
         if (!college) {
-          college = await College.findOne({
-            name: { $regex: new RegExp(pred.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
-            'location.district': { $regex: new RegExp(pred.district.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') },
-          }).lean();
-        }
-        
-        // 3. Absolute fallback: Just try finding by raw CSV name without district
-        if (!college) {
-          college = await College.findOne({
-            name: { $regex: new RegExp(pred.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') }
-          }).lean();
+          college = findCollegeByName(pred.name, pred.district);
         }
 
         // Calculate admission probability
