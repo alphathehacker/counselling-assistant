@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './ui/Header';
 import Footer from './ui/Footer';
+import ChatbotWidget from './ui/ChatbotWidget';
 import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
@@ -22,6 +23,8 @@ const Layout = ({ children }) => {
       {shouldShowFooter && <Footer />}
       {/* Spacer so the fixed mobile bottom nav never covers page/footer content */}
       {shouldShowHeader && <div className="h-20 lg:hidden" aria-hidden="true" />}
+      {/* AI chatbot (Gemini, /api/chat) — visible to logged-in users on all app pages */}
+      {shouldShowHeader && <ChatbotWidget />}
     </div>
   );
 };
