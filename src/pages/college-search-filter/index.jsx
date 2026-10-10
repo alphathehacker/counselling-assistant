@@ -322,7 +322,7 @@ const CollegeSearchFilter = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="pt-16 pb-20 lg:pb-6">
+      <div className="pb-20 lg:pb-6">
         <div className="flex">
           {/* Filter Panel */}
           <FilterPanel
