@@ -875,7 +875,7 @@ const PredictionResultsReports = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="pt-16 pb-20 lg:pb-8">
+      <main className="pb-20 lg:pb-8">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6">
           {/* Prediction Summary */}
           {predictionData && (
