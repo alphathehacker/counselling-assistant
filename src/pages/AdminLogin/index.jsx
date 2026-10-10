@@ -115,10 +115,10 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-purple-50 via-white to-blue-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen relative bg-gradient-to-br from-purple-50 via-white to-blue-50 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <Link
         to="/"
-        className="absolute top-6 left-6 text-sm text-purple-600 hover:text-purple-700 inline-flex items-center font-medium bg-white/50 px-4 py-2 rounded-lg backdrop-blur-sm transition-all hover:bg-white/80"
+        className="w-full max-w-md mb-6 text-sm text-purple-600 hover:text-purple-700 inline-flex items-center font-medium bg-white/70 px-4 py-2 rounded-lg shadow-sm transition-all hover:bg-white self-center justify-start"
       >
         <Icon name="ArrowLeft" size={16} className="mr-2" />
         Back to home
