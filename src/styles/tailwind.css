@@ -134,6 +134,15 @@
   }
 }
 
+/* Mobile safety: never let a stray wide element force horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
