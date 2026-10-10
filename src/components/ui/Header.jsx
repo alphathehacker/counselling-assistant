@@ -123,7 +123,7 @@ const Header = () => {
 
                 {/* Notifications Dropdown */}
                 {isNotificationOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-80 bg-popover border border-border rounded-lg shadow-modal z-300">
+                  <div className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] max-w-80 bg-popover border border-border rounded-lg shadow-modal z-300">
                     <div className="p-4 border-b border-border">
                       <h3 className="font-heading font-medium text-sm">Notifications</h3>
                     </div>
@@ -244,18 +244,18 @@ const Header = () => {
         </div>
       </div>
       {/* Mobile Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-100 bg-card border-t border-border">
-        <div className="flex items-center justify-around py-2">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-100 bg-card border-t border-border pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-center justify-around py-1.5">
           {navigationItems?.map((item) => (
             <Link
               key={item?.path}
               to={item?.path}
-              className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-smooth ${isActive(item?.path)
+              className={`flex flex-col items-center space-y-0.5 px-2 sm:px-3 py-1.5 rounded-lg transition-smooth min-w-0 ${isActive(item?.path)
                 ? 'text-primary' : 'text-muted-foreground'
                 }`}
             >
               <Icon name={item?.icon} size={20} />
-              <span className="text-xs font-medium">{item?.label}</span>
+              <span className="text-[11px] leading-tight font-medium">{item?.label}</span>
             </Link>
           ))}
         </div>
