@@ -1,6 +1,6 @@
 import express from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import protect from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.post('/', protect, async (req, res) => {
       return res.status(400).json({ success: false, message: 'No message provided' });
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
 
     const context = `
       You are an expert Indian College Admissions Counselor. 
